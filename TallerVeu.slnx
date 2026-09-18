@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TallerVeu.Tests/TallerVeu.Tests.csproj" />
+  <Project Path="TallerVeu/TallerVeu.csproj" />
+</Solution>

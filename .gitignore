@@ -1,0 +1,11 @@
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+# Inno Setup output
+distribucio/Output/
+# macOS
+.DS_Store
