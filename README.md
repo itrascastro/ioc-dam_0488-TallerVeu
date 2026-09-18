@@ -21,7 +21,6 @@ Materials de la unitat: https://itrascastro.github.io/ioc/dam_0488/unitat-3/
 
 ## Contingut
 - `TallerVeu/`: aplicació Windows Forms.
-- `TallerVeu.Tests/`: proves unitàries (xUnit).
 - `TallerVeu.Tests/`: projecte xUnit amb 6 proves automatitzades.
 - `distribucio/`: script d'Inno Setup (`TallerVeu.iss`) i README d'instal·lació. L'instal·lador generat (`distribucio/Output/`) no s'inclou al repositori: es crea compilant l'script amb Inno Setup, tal com s'explica als materials.
 - `pla_de_proves.md`: pla de proves amb 8 casos.
