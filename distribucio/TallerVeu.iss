@@ -8,7 +8,7 @@ Compression=lzma2
 SolidCompression=yes
 
 [Files]
-Source: "..\TallerVeu\bin\Release\net8.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "..\TallerVeu\bin\Release\net10.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: recursesubdirs
 
 [Icons]
 Name: "{group}\TallerVeu"; Filename: "{app}\TallerVeu.exe"

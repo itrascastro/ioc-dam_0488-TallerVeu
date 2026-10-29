@@ -9,8 +9,8 @@ Materials de la unitat: https://itrascastro.github.io/ioc/dam_0488/unitat-3/
 ## Requisits
 
 - Windows 10/11.
-- Visual Studio Community 2022 o superior amb la càrrega de treball **.NET desktop development**.
-- .NET SDK 8 (`net8.0-windows`).
+- Visual Studio Community 2026 o superior amb la càrrega de treball **.NET desktop development**.
+- .NET SDK 10 (`net10.0-windows`).
 
 ## Com obrir-lo
 

@@ -5,7 +5,7 @@ Requisits
 ---------
 - Windows 10 o Windows 11, de 64 bits.
 - Micròfon i altaveus (o auriculars) per fer servir el control per veu.
-- Cap requisit addicional: el paquet inclou el runtime de .NET 8, no cal
+- Cap requisit addicional: el paquet inclou el runtime de .NET 10, no cal
   instal·lar-lo per separat (compilació self-contained).
 
 Instal·lació
