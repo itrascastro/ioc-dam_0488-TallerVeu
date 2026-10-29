@@ -44,6 +44,18 @@ public partial class Form1 : Form
         lblEstat.Text = "Estat: sense veu en català ni castellà; s'utilitza " + sintetitzador.Voice.Name;
     }
 
+    /// <summary>
+    /// El reconeixedor per defecte de Windows pot estar registrat però no ser utilitzable
+    /// (per exemple, un en-US sense dades de veu), i llavors falla amb una COMException en
+    /// començar a escoltar. Per això es tria explícitament: català si hi és, castellà si no.
+    /// </summary>
+    private static RecognizerInfo? TriaReconeixedor()
+    {
+        var installats = SpeechRecognitionEngine.InstalledRecognizers();
+        return installats.FirstOrDefault(r => r.Culture.Name == "ca-ES")
+            ?? installats.FirstOrDefault(r => r.Culture.Name == "es-ES");
+    }
+
     private void BtnEscoltar_Click(object? sender, EventArgs e)
     {
         if (escoltant)
@@ -52,9 +64,16 @@ public partial class Form1 : Form
             return;
         }
 
+        var info = TriaReconeixedor();
+        if (info == null)
+        {
+            lblEstat.Text = "Estat: no hi ha cap reconeixedor de veu en català ni castellà";
+            return;
+        }
+
         try
         {
-            reconeixedor = new SpeechRecognitionEngine();
+            reconeixedor = new SpeechRecognitionEngine(info);
 
             var ordres = new Choices();
             ordres.Add(new string[]
@@ -62,7 +81,8 @@ public partial class Form1 : Form
                 "nova reparació", "marca acabada", "llegeix pendents",
                 "atura la lectura", "ajuda", "surt"
             });
-            reconeixedor.LoadGrammar(new Grammar(new GrammarBuilder(ordres)));
+            var gramatica = new GrammarBuilder(ordres) { Culture = info.Culture };
+            reconeixedor.LoadGrammar(new Grammar(gramatica));
             reconeixedor.SpeechRecognized += Reconeixedor_SpeechRecognized;
 
             reconeixedor.SetInputToDefaultAudioDevice();

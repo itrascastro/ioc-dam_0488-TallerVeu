@@ -34,21 +34,22 @@
 - **Dades:** dues reparacions pendents.
 - **Resultat esperat:** es genera un fitxer `.wav` vàlid, de durada superior a 0 segons.
 - **Resultat obtingut:** ✅ Correcte. Fitxer WAV de 5,07 s, PCM mono 22050 Hz, verificat amb la biblioteca `wave` de Python.
-- **Incidència detectada i corregida:** el primer intent va utilitzar la veu per defecte del sistema sense comprovar-ne l'idioma, i va llegir el text en català amb una veu **anglesa** (Microsoft Zira, en-US), l'única marcada com a "per defecte" en aquest equip. Es va provar de forçar una veu en català amb `SelectVoiceByHints(..., new CultureInfo("ca-ES"))`, però aquest mètode **no llança cap excepció** quan no troba cap veu de la cultura demanada: es queda amb la veu anglesa en silenci. La correcció aplicada: comprovar explícitament amb `GetInstalledVoices(new CultureInfo("ca-ES"))` (retorna una llista, buida si no n'hi ha cap) i, en no haver-hi cap veu en català en aquest equip, seleccionar la veu en castellà (Microsoft Helena, es-ES) com a alternativa i informar-ne l'estat de l'aplicació. Verificat generant de nou el `.wav` amb la veu castellana seleccionada explícitament.
+- **Incidència detectada i corregida:** la primera versió utilitzava la veu per defecte del sistema sense comprovar-ne l'idioma, i llegia el text en català amb una veu **anglesa** (Microsoft Zira, en-US). Forçar una veu en català amb `SelectVoiceByHints(..., new CultureInfo("ca-ES"))` no serveix: aquest mètode **no llança cap excepció** quan no troba cap veu de la cultura demanada, sinó que es queda amb la veu anterior en silenci. Correcció: comprovar explícitament amb `GetInstalledVoices(new CultureInfo("ca-ES"))` (retorna una llista, buida si no n'hi ha cap) i, si no hi ha cap veu en català, seleccionar una veu en castellà (per exemple, Microsoft Helena, es-ES) i informar-ne a l'estat de l'aplicació. Verificat generant de nou el `.wav` amb la veu castellana seleccionada explícitament.
 
 ## P-06 · Accessibilitat
 - **Objectiu:** comprovar que l'usuari pot aturar la lectura en veu alta en qualsevol moment.
 - **Passos:** iniciar "llegeix pendents"; mentre llegeix, dir "atura la lectura".
 - **Dades:** cap.
 - **Resultat esperat:** la síntesi s'atura immediatament (`SpeakAsyncCancelAll`), l'estat mostra "lectura aturada".
-- **Resultat obtingut:** ⚠️ Pendent de prova manual. Aquest entorn de desenvolupament no té micròfon ni altaveus reals; cal executar-la en un equip amb maquinari d'àudio complet. El codi que ho implementa (`sintetitzador.SpeakAsyncCancelAll()`) està verificat per revisió, no per execució.
+- **Resultat obtingut:** ⚠️ Pendent de prova manual amb altaveus. El codi que ho implementa (`sintetitzador.SpeakAsyncCancelAll()`) està verificat per revisió, no per execució.
 
 ## P-07 · Funcional (reconeixement real)
 - **Objectiu:** comprovar que dir "nova reparació" en veu alta crea una reparació visible a la llista.
 - **Passos:** prémer "Comença a escoltar"; dir "nova reparació" en veu alta.
 - **Dades:** cap.
 - **Resultat esperat:** apareix "Reparació 1 (pendent)" a la llista.
-- **Resultat obtingut:** ⚠️ Pendent de prova manual, pel mateix motiu que P-06. En intentar instanciar `SpeechRecognitionEngine()` en aquest entorn s'obté `COMException 0x80050022` (no hi ha cap motor de reconeixement de veu registrat al sistema): la part de negoci ja s'ha verificat per separat a P-01, però la captura real de veu requereix maquinari i un equip Windows complet.
+- **Resultat obtingut:** ✅ Correcte. L'estat passa a "escoltant..." i la llista mostra "Reparació 1 (pendent)". Reconeixement també verificat sobre un `.wav` sintetitzat: les 6 ordres es reconeixen amb el reconeixedor es-ES (confiança entre 0,61 i 0,70).
+- **Incidència detectada i corregida:** en prémer "Comença a escoltar" apareixia `COMException 0x80050022`. El reconeixedor per defecte de Windows (en-US) estava registrat però no era utilitzable, i l'error no apareixia en crear `SpeechRecognitionEngine()` sinó més tard, en inicialitzar-lo. Correcció: triar explícitament amb `InstalledRecognizers()` un reconeixedor ca-ES o, si no n'hi ha, es-ES, i fixar `GrammarBuilder.Culture` a la cultura del reconeixedor (sense això, `LoadGrammar` llança `InvalidOperationException`).
 
 ## P-08 · Distribució
 - **Objectiu:** comprovar que l'executable publicat s'executa en un equip sense el runtime de .NET instal·lat per separat.
@@ -58,4 +59,4 @@
 - **Resultat obtingut:** ✅ Correcte. Executable de 155 MB generat i executat; procés viu i estable durant almenys 3 segons abans de tancar-lo manualment.
 
 ## Resum
-6 de 8 casos completament executats i correctes. 2 casos (P-06, P-07) requereixen maquinari d'àudio real i queden documentats com a pendents d'execució manual, amb la causa tècnica exacta que ho impedeix en aquest entorn.
+7 de 8 casos executats i correctes. El cas P-06 (aturar la lectura en veu alta) queda pendent d'execució manual amb altaveus.

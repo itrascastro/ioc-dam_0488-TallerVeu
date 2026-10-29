@@ -61,14 +61,14 @@ partial class Form1
         // ordres es poden fer servir.
         this.lblOrdresDisponibles.Location = new System.Drawing.Point(20, 85);
         this.lblOrdresDisponibles.Name = "lblOrdresDisponibles";
-        this.lblOrdresDisponibles.Size = new System.Drawing.Size(420, 80);
+        this.lblOrdresDisponibles.Size = new System.Drawing.Size(420, 105);
         this.lblOrdresDisponibles.Text = "• nova reparació\r\n• marca acabada\r\n• llegeix pendents\r\n• atura la lectura\r\n• ajuda\r\n• surt";
         //
         // lblTitolAvisos
         //
         this.lblTitolAvisos.AutoSize = true;
         this.lblTitolAvisos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-        this.lblTitolAvisos.Location = new System.Drawing.Point(20, 175);
+        this.lblTitolAvisos.Location = new System.Drawing.Point(20, 200);
         this.lblTitolAvisos.Name = "lblTitolAvisos";
         this.lblTitolAvisos.Text = "Avisos:";
         //
@@ -77,7 +77,7 @@ partial class Form1
         // Aquesta etiqueta és la "zona d'avisos" de l'aplicació: hi apareix tant l'estat
         // de l'escolta com el resultat de cada ordre processada.
         this.lblEstat.AutoSize = true;
-        this.lblEstat.Location = new System.Drawing.Point(20, 195);
+        this.lblEstat.Location = new System.Drawing.Point(20, 220);
         this.lblEstat.Name = "lblEstat";
         this.lblEstat.Size = new System.Drawing.Size(80, 15);
         this.lblEstat.TabIndex = 1;
@@ -86,7 +86,7 @@ partial class Form1
         // lblUltimaOrdre
         //
         this.lblUltimaOrdre.AutoSize = true;
-        this.lblUltimaOrdre.Location = new System.Drawing.Point(20, 220);
+        this.lblUltimaOrdre.Location = new System.Drawing.Point(20, 245);
         this.lblUltimaOrdre.Name = "lblUltimaOrdre";
         this.lblUltimaOrdre.Size = new System.Drawing.Size(100, 15);
         this.lblUltimaOrdre.TabIndex = 2;
@@ -96,14 +96,14 @@ partial class Form1
         //
         this.lblTitolLlista.AutoSize = true;
         this.lblTitolLlista.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-        this.lblTitolLlista.Location = new System.Drawing.Point(20, 255);
+        this.lblTitolLlista.Location = new System.Drawing.Point(20, 280);
         this.lblTitolLlista.Name = "lblTitolLlista";
         this.lblTitolLlista.Text = "Reparacions:";
         //
         // lstReparacions
         //
         this.lstReparacions.FormattingEnabled = true;
-        this.lstReparacions.Location = new System.Drawing.Point(20, 275);
+        this.lstReparacions.Location = new System.Drawing.Point(20, 300);
         this.lstReparacions.Name = "lstReparacions";
         this.lstReparacions.Size = new System.Drawing.Size(420, 200);
         this.lstReparacions.TabIndex = 3;
@@ -112,7 +112,7 @@ partial class Form1
         //
         this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(460, 500);
+        this.ClientSize = new System.Drawing.Size(460, 525);
         this.Controls.Add(this.lstReparacions);
         this.Controls.Add(this.lblTitolLlista);
         this.Controls.Add(this.lblUltimaOrdre);
